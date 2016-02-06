@@ -1,6 +1,7 @@
 shared_examples 'vyos-base-1.1.0::init' do
   #puts host_inventory['platform']
   #puts host_inventory['platform_version']
+  #puts host_inventory['ec2']['ami-id']
 
   # BASE VYOS 1.1.0 Services and Daemons
   describe service('zebra') do
@@ -29,6 +30,12 @@ shared_examples 'vyos-base-1.1.0::init' do
 
   describe service('vyatta-quagga') do
     it { should be_enabled   }
+  end
+
+  # BASE AWS Checks
+  # Will probably fail on a non ec2 since it will miss the ec2 key. XXX REVIEW 
+  describe file('/'), :if => host_inventory['ec2']['ami-id'] != nil do
+    it { should be_mounted.with( :type => 'overlayfs' ) }
   end
 
 end
