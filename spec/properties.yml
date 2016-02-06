@@ -1,2 +1,4 @@
 foo.bar.com:
   :server_id: 1
+vyos.prz.me.uk:
+  :server_id: 2
