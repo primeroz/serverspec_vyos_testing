@@ -1,1 +1,4 @@
 #.rspec
+credentials.tfvars
+.bundle
+vendor
