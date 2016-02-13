@@ -1,6 +1,6 @@
 shared_examples 'vyos-base-1.1.0::init' do
-  #puts host_inventory['platform']
-  #puts host_inventory['platform_version']
+  puts host_inventory['platform']
+  puts host_inventory['platform_version']
   #puts host_inventory['ec2']['ami-id']
 
   # BASE VYOS 1.1.0 Services and Daemons
