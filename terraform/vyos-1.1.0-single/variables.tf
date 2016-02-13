@@ -27,10 +27,12 @@ variable "key_username" {
 }
 
 variable "vyos_1_1_0_ami" {
-    description = ""
-    default = {
-        eu-west-1 =  "ami-5e77c229"
-    }
+    description = "VyOS 1.1.0 AMI"
+    default =  "ami-5e77c229"
+}
+
+variable "subnet_id" {
+    description = "A subnet ID where to start the instance. Probably the default VPC" 
 }
 
 variable "project" {
