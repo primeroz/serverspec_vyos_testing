@@ -1,4 +1,14 @@
-foo.bar.com:
-  :server_id: 1
-vyos.prz.me.uk:
-  :server_id: 2
+vyos01:
+  :ip: "54.194.218.3"
+  :private_ip: "10.50.11.115"
+  :tun1_ip: "192.168.100.13/30"
+  :rtr_id: 01
+  :roles:
+    - vyos-base
+vyos02:
+  :ip: "54.194.158.243"
+  :private_ip: "10.50.11.42"
+  :tun1_ip: "192.168.100.14/30"
+  :rtr_id: 02
+  :roles:
+    - vyos-base
