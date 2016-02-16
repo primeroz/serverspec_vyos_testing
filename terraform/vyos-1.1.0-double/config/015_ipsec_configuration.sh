@@ -4,14 +4,6 @@ source /opt/vyatta/etc/functions/script-template
 
 configure
 
-set 'interfaces' 'tunnel' 'tun1' 'address' "${internal_ip_mine_range}"
-set 'interfaces' 'tunnel' 'tun1' 'description' "OSPF - GRE tunnel to ${fqdn}"
-set 'interfaces' 'tunnel' 'tun1' 'encapsulation' 'gre'
-set 'interfaces' 'tunnel' 'tun1' 'local-ip' "${private_ip_mine}"
-set 'interfaces' 'tunnel' 'tun1' 'mtu' '1280'
-set 'interfaces' 'tunnel' 'tun1' 'multicast' 'enable'
-set 'interfaces' 'tunnel' 'tun1' 'remote-ip' "${private_ip_peer}"
-
 set 'vpn' 'ipsec' 'esp-group' 'espgroup1' 'compression' 'enab;e'
 set 'vpn' 'ipsec' 'esp-group' 'espgroup1' 'lifetime' '3600'
 set 'vpn' 'ipsec' 'esp-group' 'espgroup1' 'mode' 'tunnel'
