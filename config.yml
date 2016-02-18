@@ -1,0 +1,20 @@
+network:
+  common:
+    :tun1_ip_nm: "30"
+    :tun1_range: "192.168.100.12/30"
+    :vyos_version: "1.1.0"
+    :vyos_ami: "1.1.0"
+    :ssh_username: "vyos"
+    :ssh_keypath: "~/.ssh/id_rsa"
+  aws:
+    :instance_type: "t2.micro"
+    :ssh_keyname: "terraform"
+    :subnet_id: "subnet-1234567"
+    :region: "eu-west-1"
+    :ami: "ami-5e77c229"
+  vyos01:
+    :tun1_ip: "192.168.100.13"
+    :rtr_id: 1
+  vyos02:
+    :tun1_ip: "192.168.100.14"
+    :rtr_id: 2

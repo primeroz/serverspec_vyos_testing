@@ -29,23 +29,14 @@ namespace :serverspec do
   end
 end
 
-#namespace :serverspec do
-#  targets = []
-#  Dir.glob('spec/**/*_spec.rb').each do |file|
-#    host = /(.*)_spec.rb/.match(File.basename(file))[1]
-#    targets << host
-#  end
-#
-#  task :all     => targets
-#  task :default => :all
-#
-#
-#  targets.each do |target|
-#    desc "Run serverspec tests to #{target}"
-#    RSpec::Core::RakeTask.new(target.to_sym) do |t|
-#      ENV['TARGET_HOST'] = target
-#      t.pattern = "#{target}_spec.rb"
-#      t.verbose = false
-#    end
-#  end
-#end
+# Generate Environment for Terraform and ServerSpec from yaml file
+namespace :env do
+  task :init do
+    configs = YAML.load_file('config.yml')
+
+    # Generate jenkins.json configuration for terraform
+    tf_hash = {}
+    tf_hash[:ospf_area_0_range]=configs[:network][:tun1_range]
+    tf_hash[:internal_ip_vyos01_range]=configs[:network][:vyos01][:192.168.100.13]+"/"+configs[:network][:common][:tun1_ip_nm]
+  end
+end

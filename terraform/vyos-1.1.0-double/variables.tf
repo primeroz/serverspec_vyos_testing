@@ -26,11 +26,6 @@ variable "key_username" {
     default = "vyos"
 }
 
-variable "instance_count" {
-    description = "Number of Instances"
-    default = "2"
-}
-
 variable "vyos_1_1_0_ami" {
     description = "VyOS 1.1.0 AMI"
     default =  "ami-5e77c229"
@@ -46,14 +41,6 @@ variable "project" {
 
 variable "env" {
     description = "Project Environment"
-}
-
-variable "dns_domain" {
-    description = "DNS route53 Top Zone"
-}
-
-variable "dns_domain_id" {
-    description = "DNS route53 Top Zone id"
 }
 
 variable "instance_type" {
