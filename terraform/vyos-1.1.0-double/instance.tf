@@ -261,7 +261,10 @@ resource "null_resource" "provision_vyos02" {
 
     provisioner "remote-exec" {
         inline = [
-            "/tmp/001_base_configuration.sh"
+            "/tmp/001_base_configuration.sh",
+            "/tmp/010_interfaces_configuration.sh",
+            "/tmp/015_ipsec_configuration.sh",
+            "/tmp/030_ospf_configuration.sh"
         ]
     }
 
