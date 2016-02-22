@@ -31,6 +31,11 @@ variable "vyos_1_1_0_ami" {
     default =  "ami-5e77c229"
 }
 
+variable "vyos_1_1_7_ami" {
+    description = "VyOS 1.1.7 AMI"
+    default =  "ami-b1f944c2"
+}
+
 variable "subnet_id" {
     description = "A subnet ID where to start the instance. Probably the default VPC" 
 }

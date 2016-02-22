@@ -36,7 +36,7 @@ namespace :env do
 
     # Generate jenkins.json configuration for terraform
     tf_hash = {}
-    tf_hash[:ospf_area_0_range]=configs[:network][:tun1_range]
-    tf_hash[:internal_ip_vyos01_range]=configs[:network][:vyos01][:192.168.100.13]+"/"+configs[:network][:common][:tun1_ip_nm]
+    tf_hash[:ospf_area_0_range]=configs['network'][:tun1_range]
+    tf_hash[:internal_ip_vyos01_range]=configs[:network][:vyos01][:tun1_ip]+"/"+configs['network'][:common][:tun1_ip_nm]
   end
 end

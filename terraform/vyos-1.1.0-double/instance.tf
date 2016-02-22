@@ -1,7 +1,7 @@
 resource "template_file" "001_base_configuration_vyos01" {
     template = "${file("config/001_base_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.0-i01"
+        fqdn = "test-vyos-1.1.7-i01"
         short_name = "vyos01"
         private_ip_mine = "${aws_instance.vyos01.private_ip}"
         private_ip_peer = "${aws_instance.vyos02.private_ip}"
@@ -11,7 +11,7 @@ resource "template_file" "001_base_configuration_vyos01" {
 resource "template_file" "001_base_configuration_vyos02" {
     template = "${file("config/001_base_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.0-i02"
+        fqdn = "test-vyos-1.1.7-i02"
         short_name = "vyos02"
         private_ip_mine = "${aws_instance.vyos02.private_ip}"
         private_ip_peer = "${aws_instance.vyos01.private_ip}"
@@ -21,7 +21,7 @@ resource "template_file" "001_base_configuration_vyos02" {
 resource "template_file" "010_interfaces_configuration_vyos01" {
     template = "${file("config/010_interfaces_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.0-i01"
+        fqdn = "test-vyos-1.1.7-i01"
         internal_ip_mine_range = "192.168.100.13/30"
         rtr_id_mine = "1"
         rtr_id_peer = "2"
@@ -33,7 +33,7 @@ resource "template_file" "010_interfaces_configuration_vyos01" {
 resource "template_file" "010_interfaces_configuration_vyos02" {
     template = "${file("config/010_interfaces_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.0-i02"
+        fqdn = "test-vyos-1.1.7-i02"
         internal_ip_mine_range = "192.168.100.14/30"
         rtr_id_mine = "2"
         rtr_id_peer = "1"
@@ -89,7 +89,7 @@ resource "aws_instance" "vyos01" {
         key_file = "${var.key_path}"
         agent = true
     }
-    ami = "${var.vyos_1_1_0_ami}"
+    ami = "${var.vyos_1_1_7_ami}"
     instance_type = "${var.instance_type}"
     key_name = "${var.key_name}"
 
@@ -97,7 +97,7 @@ resource "aws_instance" "vyos01" {
     associate_public_ip_address = true
 
     tags = {
-        Name = "test-vyos-1.1.0-i01"
+        Name = "test-vyos-1.1.7-i01"
         project = "${var.project}"
         environment = "${var.env}"
     }
@@ -120,7 +120,7 @@ resource "aws_instance" "vyos02" {
         key_file = "${var.key_path}"
         agent = true
     }
-    ami = "${var.vyos_1_1_0_ami}"
+    ami = "${var.vyos_1_1_7_ami}"
     instance_type = "${var.instance_type}"
     key_name = "${var.key_name}"
 
@@ -128,7 +128,7 @@ resource "aws_instance" "vyos02" {
     associate_public_ip_address = true
 
     tags = {
-        Name = "test-vyos-1.1.0-i02"
+        Name = "test-vyos-1.1.7-i02"
         project = "${var.project}"
         environment = "${var.env}"
     }
