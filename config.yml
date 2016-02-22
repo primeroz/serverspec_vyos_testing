@@ -1,3 +1,7 @@
+terraform:
+  var_files:
+    - credentials.tfvars
+    - placeholder.tfvars
 network:
   common:
     :tun1_ip_nm: "30"
