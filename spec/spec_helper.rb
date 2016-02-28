@@ -23,8 +23,8 @@ end
 
 host = ENV['TARGET_HOST']
 options = Net::SSH::Config.for(host)
-options[:user] = 'vyos'
-options[:keys] = ['~/.ssh/Thekey.pem']
+options[:user] = properties[ENV['TARGET_HOST_NAME']][:ssh_username]
+options[:keys] = [properties[ENV['TARGET_HOST_NAME']][:ssh_keypath]]
 
 set :host,        options[:host_name] || host
 set :ssh_options, options

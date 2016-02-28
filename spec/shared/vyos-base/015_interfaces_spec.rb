@@ -3,7 +3,7 @@ require 'spec_helper'
 describe interface('tun1') do
   it { should exist }
   #it { should be_up } # Can't check status on tun interface :(
-  it { should have_ipv4_address("#{property[:tun1_ip]}") }
+  it { should have_ipv4_address("#{property[:tun1_ip_range]}") }
 end
 
 describe command('/tmp/vbash-show.sh show interface tunnel tun1') do

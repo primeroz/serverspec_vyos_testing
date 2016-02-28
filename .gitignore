@@ -1,9 +1,13 @@
 #.rspec
 credentials.tfvars
 credentials.json
+credentials.yml
 placeholder.tfvars
 jenkins.tfvars
 jenkins.json
+config.tfvars
+config.json
+properties.yml
 .bundle
 vendor
 bin

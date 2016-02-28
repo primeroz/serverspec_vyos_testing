@@ -11,29 +11,27 @@ variable "region" {
     default = "eu-west-1"
 }
 
-variable "key_name" {
+variable "ssh_keyname" {
     description = "Name of the keypair to use in EC2."
     default = "terraform"
 }
 
-variable "key_path" {
+variable "ssh_keypath" {
     descriptoin = "Path to your private key."
     default = "~/.ssh/id_rsa"
 }
 
-variable "key_username" {
+variable "ssh_username" {
     descriptoin = "SSH Username"
     default = "vyos"
 }
 
-variable "vyos_1_1_0_ami" {
-    description = "VyOS 1.1.0 AMI"
-    default =  "ami-5e77c229"
+variable "vyos_ami" {
+    description = "VyOS AMI"
 }
 
-variable "vyos_1_1_7_ami" {
-    description = "VyOS 1.1.7 AMI"
-    default =  "ami-b1f944c2"
+variable "vyos_version" {
+    description = "VyOS Version"
 }
 
 variable "subnet_id" {
@@ -53,3 +51,30 @@ variable "instance_type" {
     default = "t2.micro"
 }
 
+variable "internal_ip_vyos01_tun1_range" {
+    description = "Internal Ip range Tun1 Vyos01"
+}
+
+variable "internal_ip_vyos02_tun1_range" {
+    description = "Internal Ip range Tun1 Vyos02"
+}
+
+variable "internal_ip_vyos01_tun1_ip" {
+    description = "Internal Ip Tun1 Vyos01"
+}
+
+variable "internal_ip_vyos02_tun1_ip" {
+    description = "Internal Ip Tun1 Vyos02"
+}
+
+variable "internal_ip_vyos01_tun1_rtr_id" {
+    description = "Internal Ip Tun1 rtr id Vyos01"
+}
+
+variable "internal_ip_vyos02_tun1_rtr_id" {
+    description = "Internal Ip Tun1 rtr id Vyos02"
+}
+
+variable "ospf_area_0_tun1_range" {
+    description = "OSPF Area 0 tun2 Range"
+}

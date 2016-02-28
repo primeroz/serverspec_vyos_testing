@@ -1,7 +1,7 @@
 resource "template_file" "001_base_configuration_vyos01" {
     template = "${file("config/001_base_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.7-i01"
+        fqdn = "test-vyos-${var.vyos_version}-i01"
         short_name = "vyos01"
         private_ip_mine = "${aws_instance.vyos01.private_ip}"
         private_ip_peer = "${aws_instance.vyos02.private_ip}"
@@ -11,7 +11,7 @@ resource "template_file" "001_base_configuration_vyos01" {
 resource "template_file" "001_base_configuration_vyos02" {
     template = "${file("config/001_base_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.7-i02"
+        fqdn = "test-vyos-${var.vyos_version}-i02"
         short_name = "vyos02"
         private_ip_mine = "${aws_instance.vyos02.private_ip}"
         private_ip_peer = "${aws_instance.vyos01.private_ip}"
@@ -21,10 +21,10 @@ resource "template_file" "001_base_configuration_vyos02" {
 resource "template_file" "010_interfaces_configuration_vyos01" {
     template = "${file("config/010_interfaces_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.7-i01"
-        internal_ip_mine_range = "192.168.100.13/30"
-        rtr_id_mine = "1"
-        rtr_id_peer = "2"
+        fqdn = "test-vyos-${var.vyos_version}-i01"
+        internal_ip_mine_range = "${var.internal_ip_vyos01_tun1_range}"
+        rtr_id_mine = "${var.internal_ip_vyos01_tun1_rtr_id}"
+        rtr_id_peer = "${var.internal_ip_vyos02_tun1_rtr_id}"
         private_ip_mine = "${aws_instance.vyos01.private_ip}"
         private_ip_peer = "${aws_instance.vyos02.private_ip}"
     }
@@ -33,10 +33,10 @@ resource "template_file" "010_interfaces_configuration_vyos01" {
 resource "template_file" "010_interfaces_configuration_vyos02" {
     template = "${file("config/010_interfaces_configuration.sh")}"
     vars = {
-        fqdn = "test-vyos-1.1.7-i02"
-        internal_ip_mine_range = "192.168.100.14/30"
-        rtr_id_mine = "2"
-        rtr_id_peer = "1"
+        fqdn = "test-vyos-${var.vyos_version}-i02"
+        internal_ip_mine_range = "${var.internal_ip_vyos02_tun1_range}"
+        rtr_id_mine = "${var.internal_ip_vyos02_tun1_rtr_id}"
+        rtr_id_peer = "${var.internal_ip_vyos01_tun1_rtr_id}"
         private_ip_mine = "${aws_instance.vyos02.private_ip}"
         private_ip_peer = "${aws_instance.vyos01.private_ip}"
     }
@@ -61,43 +61,43 @@ resource "template_file" "015_ipsec_configuration_vyos02" {
 resource "template_file" "030_ospf_configuration_vyos01" {
     template = "${file("config/030_ospf_configuration.sh")}"
     vars = {
-        ospf_area_0_range = "192.168.100.12/30"
-        internal_ip_mine_range = "192.168.100.13/30"
-        internal_ip_mine = "192.168.100.13"
-        internal_ip_peer = "192.168.100.14"
-        rtr_id_mine = "1"
-        rtr_id_peer = "2"
+        ospf_area_0_range = "${var.ospf_area_0_tun1_range}"
+        internal_ip_mine_range = "${var.internal_ip_vyos01_tun1_range}"
+        internal_ip_mine = "${var.internal_ip_vyos01_tun1_ip}"
+        internal_ip_peer = "${var.internal_ip_vyos02_tun1_ip}"
+        rtr_id_mine = "${var.internal_ip_vyos01_tun1_rtr_id}"
+        rtr_id_peer = "${var.internal_ip_vyos02_tun1_rtr_id}"
     }
 }
 
 resource "template_file" "030_ospf_configuration_vyos02" {
     template = "${file("config/030_ospf_configuration.sh")}"
     vars = {
-        ospf_area_0_range = "192.168.100.12/30"
-        internal_ip_mine_range = "192.168.100.14/30"
-        internal_ip_mine = "192.168.100.14"
-        internal_ip_peer = "192.168.100.13"
-        rtr_id_mine = "2"
-        rtr_id_peer = "1"
+        ospf_area_0_range = "${var.ospf_area_0_tun1_range}"
+        internal_ip_mine_range = "${var.internal_ip_vyos02_tun1_range}"
+        internal_ip_mine = "${var.internal_ip_vyos02_tun1_ip}"
+        internal_ip_peer = "${var.internal_ip_vyos01_tun1_ip}"
+        rtr_id_mine = "${var.internal_ip_vyos02_tun1_rtr_id}"
+        rtr_id_peer = "${var.internal_ip_vyos01_tun1_rtr_id}"
     }
 }
 
 
 resource "aws_instance" "vyos01" {
     connection {
-        user = "${var.key_username}"
-        key_file = "${var.key_path}"
-        agent = true
+        user = "${var.ssh_username}"
+        key_file = "${var.ssh_keypath}"
+        agent = false
     }
-    ami = "${var.vyos_1_1_7_ami}"
+    ami = "${var.vyos_ami}"
     instance_type = "${var.instance_type}"
-    key_name = "${var.key_name}"
+    key_name = "${var.ssh_keyname}"
 
     subnet_id = "${var.subnet_id}"
     associate_public_ip_address = true
 
     tags = {
-        Name = "test-vyos-1.1.7-i01"
+        Name = "test-vyos-${var.vyos_version}-i01"
         project = "${var.project}"
         environment = "${var.env}"
     }
@@ -116,19 +116,19 @@ resource "aws_instance" "vyos01" {
 
 resource "aws_instance" "vyos02" {
     connection {
-        user = "${var.key_username}"
-        key_file = "${var.key_path}"
-        agent = true
+        user = "${var.ssh_username}"
+        key_file = "${var.ssh_keypath}"
+        agent = false
     }
-    ami = "${var.vyos_1_1_7_ami}"
+    ami = "${var.vyos_ami}"
     instance_type = "${var.instance_type}"
-    key_name = "${var.key_name}"
+    key_name = "${var.ssh_keyname}"
 
     subnet_id = "${var.subnet_id}"
     associate_public_ip_address = true
 
     tags = {
-        Name = "test-vyos-1.1.7-i02"
+        Name = "test-vyos-${var.vyos_version}-i02"
         project = "${var.project}"
         environment = "${var.env}"
     }
@@ -152,9 +152,9 @@ resource "null_resource" "provision_vyos01" {
     }
     connection {
         host = "${aws_instance.vyos01.public_ip}"
-        user = "${var.key_username}"
-        key_file = "${var.key_path}"
-        agent = true
+        user = "${var.ssh_username}"
+        key_file = "${var.ssh_keypath}"
+        agent = false
     }
 
     provisioner "remote-exec" {
@@ -200,7 +200,10 @@ resource "null_resource" "provision_vyos01" {
 
     provisioner "remote-exec" {
         inline = [
-            "/tmp/001_base_configuration.sh"
+            "/tmp/001_base_configuration.sh",
+            "/tmp/010_interfaces_configuration.sh",
+            "/tmp/015_ipsec_configuration.sh",
+            "/tmp/030_ospf_configuration.sh"
         ]
     }
 }
@@ -212,9 +215,9 @@ resource "null_resource" "provision_vyos02" {
     }
     connection {
         host = "${aws_instance.vyos02.public_ip}"
-        user = "${var.key_username}"
-        key_file = "${var.key_path}"
-        agent = true
+        user = "${var.ssh_username}"
+        key_file = "${var.ssh_keypath}"
+        agent = false
     }
 
 
